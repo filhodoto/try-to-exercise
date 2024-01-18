@@ -1,10 +1,14 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+// Require dotenv so we can access values in .env file
+require('dotenv').config();
 
-// Express ºpp
+const express = require('express');
+
+const app = express();
+const port = process.env.PORT;
+
+// Express app
 app.get('/', (req, res) => {
-  res.send('Connected to server');
+  res.send({ msg: 'Connected to server' });
 });
 
 // Listening for request
