@@ -2,9 +2,11 @@
 require('dotenv').config();
 const { createRoutes } = require('./routes');
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 const port = process.env.PORT;
+const dbURL = process.env.DATABASE_URL;
 
 // Middleware
 app.use((req, res, next) => {
@@ -18,7 +20,18 @@ app.use((req, res, next) => {
 // Create routes
 createRoutes(app);
 
-// Listening for request
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+// Connect to DB
+// Note:: Check if current up address is whitelisted in Mongoose Atlas
+mongoose
+  .connect(dbURL)
+  .then(() => {
+    console.log('Connected to db >>>');
+
+    // Listening for request
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log('Error connecting to db >>> ', err);
+  });
