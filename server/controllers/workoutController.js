@@ -1,5 +1,5 @@
 const express = require('express');
-
+const workoutService = require('../services/workoutService');
 const router = express.Router();
 
 // GET all workouts
@@ -14,9 +14,16 @@ router.get('/:id', (req, res) => {
 });
 
 // POST a new workout by :id
-router.post('/:id', (req, res) => {
+router.post('/', async (req, res) => {
   const { id } = req.params;
-  res.send({ msg: `POST workout with id ${id}` });
+  try {
+    // Call service logic for create
+    const workout = await workoutService.create(req.body);
+    return res.json(workout);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 // DELETE single workout by :id
