@@ -12,10 +12,13 @@ const dbURL = process.env.DATABASE_URL;
 app.use((req, res, next) => {
   console.log(`Path: ${req.path}`);
   console.log(`Method: ${req.method}`);
-
   // without this we won't go to next get/post/etc request
   next();
 });
+
+// Make sure the "body" post is parsed into req.body
+// https://expressjs.com/en/api.html#req.body
+app.use(express.json());
 
 // Create routes
 createRoutes(app);
