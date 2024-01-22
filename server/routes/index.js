@@ -1,7 +1,7 @@
 const workoutController = require('../controllers/workoutController');
 
 const createRoutes = (app) => {
-  app.use('/workouts', workoutController);
+  app.use('/api/workouts', workoutController);
 };
 
 module.exports = { createRoutes };
