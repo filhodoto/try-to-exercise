@@ -3,8 +3,13 @@ const workoutService = require('../services/workoutService');
 const router = express.Router();
 
 // GET all workouts
-router.get('/', (req, res) => {
-  res.send({ msg: 'Get all workouts' });
+router.get('/', async (req, res) => {
+  try {
+    const workouts = await workoutService.getAll();
+    return res.json(workouts);
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 // GET single workout by :id
@@ -21,7 +26,6 @@ router.post('/', async (req, res) => {
     const workout = await workoutService.create(req.body);
     return res.json(workout);
   } catch (err) {
-    console.log(err);
     return res.status(400).json({ error: err.message });
   }
 });
