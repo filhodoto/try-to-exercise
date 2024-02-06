@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
-interface Item {
-  _id: string;
-  title: string;
-  reps: number;
-  load: number;
-}
+import ItemCard, { Item } from 'components/ItemCard';
+import './styles.css';
 
 const Home = (): JSX.Element => {
   const [items, setSetItems] = useState<Item[]>([]);
@@ -13,11 +8,10 @@ const Home = (): JSX.Element => {
   useEffect(() => {
     const fetchItems = async () => {
       const response = await fetch('/api/workouts');
-      console.log('response >>> ', response);
+
       // If response was returned correctly
       if (response.ok) {
-        const itemsJson = await response.json();
-        console.log('itemsJson >>> ', itemsJson);
+        const itemsJson: Item[] = await response.json();
         setSetItems(itemsJson);
       }
     };
@@ -28,12 +22,9 @@ const Home = (): JSX.Element => {
   return (
     <div className="home">
       <ul className="items">
-        {items &&
-          items.map((item) => (
-            <li key={item._id} className="item">
-              {item.title}
-            </li>
-          ))}
+        {items.map((item) => (
+          <ItemCard key={item._id} {...item} />
+        ))}
       </ul>
     </div>
   );

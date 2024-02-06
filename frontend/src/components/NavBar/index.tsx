@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 import { Link, Outlet } from 'react-router-dom';
 
 /* This component contains the elements/layout that should be shown across the application. For example the header */
