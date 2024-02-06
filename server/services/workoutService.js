@@ -18,6 +18,7 @@ const getAll = async () => {
 
   return workouts;
 };
+
 // TODO:: Find a way to keep logic in services but be abel to set error codes (404/500/etc)
 const getWorkout = async (id) => {
   // Check if id is a valid mongoose type
@@ -31,4 +32,17 @@ const getWorkout = async (id) => {
   return workout;
 };
 
-module.exports = { create, getAll, getWorkout };
+const delete = async (id) => {
+  // Check if id is a valid mongoose type
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw Error('Workout id is not valid');
+
+  const workout = await WorkoutModel.findOneAndDelete({ _id: id });
+  console.log(workout);
+  // If no workout found, throw error
+  if (!workout) throw Error('No workout found');
+
+  return workout;
+};
+
+module.exports = { create, getAll, getWorkout, delete };

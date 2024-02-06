@@ -35,15 +35,26 @@ router.post('/', async (req, res) => {
 });
 
 // DELETE single workout by :id
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  res.send({ msg: `DELETE workout with id ${id}` });
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Call service logic for delete
+    const workout = await workoutService.delete(id);
+    return res.json(workout);
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 // UPDATE single workout by :id
-router.patch('/:id', (req, res) => {
-  const { id } = req.params;
-  res.send({ msg: `UPDATE workout with id ${id}` });
+router.patch('/', (req, res) => {
+  try {
+    // Call service logic for create
+    const workout = await workoutService.update(req.body);
+    return res.json(workout);
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 module.exports = router;
