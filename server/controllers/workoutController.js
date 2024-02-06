@@ -39,7 +39,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     // Call service logic for delete
-    const workout = await workoutService.delete(id);
+    const workout = await workoutService.deleteWorkout(id);
     return res.json(workout);
   } catch (err) {
     return res.status(400).json({ error: err.message });
@@ -47,10 +47,10 @@ router.delete('/:id', async (req, res) => {
 });
 
 // UPDATE single workout by :id
-router.patch('/', (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     // Call service logic for create
-    const workout = await workoutService.update(req.body);
+    const workout = await workoutService.updateWorkout(req);
     return res.json(workout);
   } catch (err) {
     return res.status(400).json({ error: err.message });
