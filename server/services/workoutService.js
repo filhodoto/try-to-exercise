@@ -12,6 +12,9 @@ const create = async (body) => {
 
   const workout = await WorkoutModel.create({ title, reps, load });
 
+  // If no workout found, throw error
+  if (!workout) throw Error('Workout could not be created');
+
   return workout;
 };
 
@@ -23,7 +26,7 @@ const getAll = async () => {
   return workouts;
 };
 
-// TODO:: Find a way to keep logic in services but be abel to set error codes (404/500/etc)
+// TODO:: Find a way to keep logic in services but be able to set error codes (404/500/etc)
 const getWorkout = async (id) => {
   // Check if id is a valid mongoose type
   if (!mongoose.Types.ObjectId.isValid(id)) throw Error('No workout found');

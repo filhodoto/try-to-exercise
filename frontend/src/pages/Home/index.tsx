@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ItemCard, { Item } from 'components/ItemCard';
 import './styles.css';
+import WorkoutForm from 'components/WorkoutForm/WorkoutForm';
 
 const Home = (): JSX.Element => {
   const [items, setSetItems] = useState<Item[]>([]);
@@ -26,6 +27,7 @@ const Home = (): JSX.Element => {
           <ItemCard key={item._id} {...item} />
         ))}
       </ul>
+      <WorkoutForm />
     </div>
   );
 };
