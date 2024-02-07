@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './styles.css';
 
 const WorkoutForm = (): JSX.Element => {
   const [title, setTitle] = useState('');
@@ -39,6 +40,8 @@ const WorkoutForm = (): JSX.Element => {
 
       // Give a positive feedback
       alert('Workout created successfully');
+
+      console.log(json);
     }
   };
 
@@ -66,8 +69,8 @@ const WorkoutForm = (): JSX.Element => {
         onChange={(e) => setReps(e.target.value)}
         value={reps}
       />
-      {error && <span className="error">Something went wrong: {error}</span>}
-      <button>Create</button>
+      <button>Add workout</button>
+      {error && <div className="error">Something went wrong: {error}</div>}
     </form>
   );
 };
