@@ -26,3 +26,13 @@
   border-radius: 50%;
   color: #333;
 }
+span.delete {
+  border-radius: 10px;
+  font-size: 0.8rem;
+  transition: 0.2s ease-out;
+}
+
+span.delete:hover {
+  background-color: var(--error);
+  color: #f1f1f1;
+}
